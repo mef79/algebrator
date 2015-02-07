@@ -18,13 +18,13 @@
     <h1>Algebrator</h1>
     <br>
     <span id="left-side" class="side">
-    	<span class="variable">{{ a }}</span>x 
+    	<span class="variable" id="a">{{ a }}</span>x 
     	+ 
-    	<span class="variable">{{ b }}</span>
+    	<span class="variable" id="b">{{ b }}</span>
     </span>
     	= 
     <span id="right-side" class="side">
-    	<span class="variable">{{ c }}</span>
+    	<span class="variable" id="c">{{ c }}</span>
     </span>
     <br>
     <br>
@@ -121,16 +121,28 @@
 			l = math.eval(left)
 			r = math.eval(right)
 
-			console.log(r)
-
 			$('.side').empty()
 
-			$('#left-side').append('<span class="variable">' + l.im + '</span>x + <span class="variable">' + l.re + '</span>')
+			$('#left-side').append('<span class="variable" id="a">' + l.im + '</span>x <span id="op">+ </span><span class="variable" id="b">' + l.re + '</span>')
 
 			$('#right-side').append('<span class="variable">' + r + '</span>')
 
+			clean()
+
 		}
 
+		function clean(){
+			a = $('#a')
+			if (a.text() == '1'){
+				a.text('')
+			}
+
+			b = $('#b')
+			if (b.text() == '0'){
+				$('#op').remove()
+				b.text('')
+			}
+		}
 
 	</script>
   </body>
