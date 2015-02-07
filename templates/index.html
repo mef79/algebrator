@@ -18,13 +18,13 @@
     <h1>Algebrator</h1>
     <br>
     <span id="left-side" class="side">
-    	<span class="variable" id="a">{{ a }}</span>x 
+    	<span class="variable" id="x-coefficient">{{ a }}</span>x 
     	+ 
-    	<span class="variable" id="b">{{ b }}</span>
+    	<span class="variable" id="left-const">{{ b }}</span>
     </span>
     	= 
     <span id="right-side" class="side">
-    	<span class="variable" id="c">{{ c }}</span>
+    	<span class="variable">{{ c }}</span>
     </span>
     <br>
     <br>
@@ -43,42 +43,40 @@
 	</span>
 	<br>
 	<button id="simplify" class="btn btn-lg btn-default" onclick="simplify()">Simplify</button>
+	
 	<script>
+
 		function operation(clicked){
 			op = $(clicked).attr("op")
-			$('.variable').attr("onclick")
+			id = $(clicked).attr("id")
+
+			add_functions_to_vars(op) 	// add onclick functions to variables
+			highlight_vars() 			// highlight all variables
+			highlight_button('#' + id)	// highlight appropriate button
+			add_cancel_button(op)		// add cancel button for appropriate operator
+		}
+
+		function add_functions_to_vars(op){
 			if (op == '+' || op == '-'){
+				// the non-paretheses operations
 				$('.variable').attr('onclick', "add_sub('" + op + "', this)")
 			} else {
+				// operations that get parentheses
 				$('.variable').attr('onclick', "mult_div('" + op + "', this)")
 			}
-			highlight_vars()
-			add_cancel_button(get_id_from_op(op))
 		}
 
-		function add_cancel_button(id){
-			$('#buttons').append('<button id="cancel-button" class="btn btn-lg btn-danger" onclick="cancel(\'#'+id+'\')">Cancel</button>')
-		}
+		function add_cancel_button(op){
+			id = get_id_from_op(op)
 
-		function highlight_vars(){
-			$('.variable').attr("style", "background:cyan")
+			$('#buttons').append('<button id="cancel-button" class="btn btn-lg btn-danger" onclick="cancel(\''+id+'\')">Cancel</button>')
 		}
 
 		function cancel(elem){
 			$('.variable').attr("onclick", "")
-			$('.variable').attr("style", "background:white")
-			$(elem).removeClass('btn-info')
-			$(elem).addClass('btn-default')
+			unhighlight_vars()
+			unhighlight_button()
 			$('#cancel-button').remove()
-		}
-
-		function add_sub(op, clicked){
-			v = $(clicked).text()
-
-			// insert operator followed by the number
-			$('.side').append(" " + op + " <span class='variable'>" + v + "</span> ")
-
-			cancel(get_id_from_op(op))
 		}
 
 		function get_id_from_op(op){
@@ -94,6 +92,15 @@
 			if (op == '/'){
 				return "#divide"
 			}
+		}
+
+		function add_sub(op, clicked){
+			v = $(clicked).text()
+
+			// insert operator followed by the number
+			$('.side').append(" " + op + " <span class='variable'>" + v + "</span> ")
+
+			cancel(get_id_from_op(op))
 		}
 
 		function mult_div(op, clicked){
@@ -132,7 +139,7 @@
 				op = '+ '
 			}
 
-			$('#left-side').append('<span class="variable" id="a">' + l.im + '</span>x <span id="op">' + op + ' </span><span class="variable" id="b">' + left_const + '</span>')
+			$('#left-side').append('<span class="variable" id="x-coefficient">' + l.im + '</span>x <span id="op">' + op + ' </span><span class="variable" id="left-const">' + left_const + '</span>')
 
 			$('#right-side').append('<span class="variable">' + r + '</span>')
 
@@ -141,16 +148,41 @@
 		}
 
 		function clean(){
-			a = $('#a')
-			if (a.text() == '1'){
-				a.text('')
+			x_coefficient = $('#x-coefficient')
+			if (x_coefficient.text() == '1' || x_coefficient.text() == '-1'){
+				t = x_coefficient.text()
+				x_coefficient.text(t.replace('1', ''))
 			}
 
-			b = $('#b')
-			if (b.text() == '0'){
+			left_const = $('#left-const')
+			if (left_const.text() == '0'){
 				$('#op').remove()
-				b.text('')
+				left_const.text('')
 			}
+
+		}
+
+		// functions to change appearances of html elements
+
+		function highlight_vars(){
+			$('.variable').attr("style", "background:cyan")
+		}
+
+		function unhighlight_vars(){
+			$('.variable').attr("style", "background:white")
+		}
+
+		function highlight_button(selector){
+			console.log('Button highlighted, selector: ' + selector)
+			$(selector).addClass('highlighted-button')
+
+			// do highlighting here or add CSS rules for highlighted buton
+		}
+
+		function unhighlight_button(){
+			highlighted_button = $('.highlighted-button')
+			console.log('Button to unhighlight identified, selector: #' + highlighted_button.attr('id'))
+			highlighted_button.removeClass('highlighted-button')
 		}
 
 	</script>
