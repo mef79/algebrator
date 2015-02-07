@@ -123,7 +123,16 @@
 
 			$('.side').empty()
 
-			$('#left-side').append('<span class="variable" id="a">' + l.im + '</span>x <span id="op">+ </span><span class="variable" id="b">' + l.re + '</span>')
+			left_const = l.re
+
+			if (left_const < 0){
+				op = '- '
+				left_const = Math.abs(left_const)
+			} else {
+				op = '+ '
+			}
+
+			$('#left-side').append('<span class="variable" id="a">' + l.im + '</span>x <span id="op">' + op + ' </span><span class="variable" id="b">' + left_const + '</span>')
 
 			$('#right-side').append('<span class="variable">' + r + '</span>')
 
