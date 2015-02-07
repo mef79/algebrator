@@ -17,17 +17,61 @@
     <h1>Algebrator</h1>
     <br>
     <br>
-    <span id="a">{{ a }}</span> x + <span id="b">{{ b }}</span> = <span id="c">{{ c }}</span>
+    <span id="left-side">
+    	<span id="a" class="variable">{{ a }}</span>x 
+    	+ 
+    	<span id="b" class="variable">{{ b }}</span>
+    </span>
+    <span id="right-side">
+    	= 
+    	<span id="c" class="variable">{{ c }}</span>
+    </span>
     <br>
-	<button class="btn btn-lg btn-default">+</button>
-	<button class="btn btn-lg btn-default">-</button>
-	<button class="btn btn-lg btn-default">*</button>
-	<button class="btn btn-lg btn-default">/</button>
+	<button class="btn btn-lg btn-default" onclick="add()">+</button>
+	<button class="btn btn-lg btn-default" onclick="subtract()">-</button>
+	<button class="btn btn-lg btn-default" onclick="multiply()">*</button>
+	<button class="btn btn-lg btn-default" onclick="divide()">/</button>
 	<br>
 	<script>
-		document.write($('#a').text()+"\n");
-		document.write($('#b').text()+"\n");
-		document.write($('#c').text()+"\n");
+		a = parseInt($('#a').text())
+		b = parseInt($('#b').text())
+		c = parseInt($('#c').text())
+
+		function add(){
+			$('.variable').attr("onclick", "add_variable()")
+			$('.variable').attr("style", "background:cyan")
+		}
+
+		function subtract(){
+			$('.variable').attr("onclick", "subtract_variable()")
+			$('.variable').attr("style", "background:cyan")
+		}
+
+		function multiply(){
+			$('.variable').attr("onclick", "multiply_variable()")
+			$('.variable').attr("style", "background:cyan")
+		}
+
+		function divide(){
+			$('.variable').attr("onclick", "divide_variable()")
+			$('.variable').attr("style", "background:cyan")
+		}
+
+		function add_variable(){
+
+		}
+
+		function subtract_variable(){
+
+		}
+
+		function multiply_variable(){
+
+		}
+
+		function divide_variable(){
+
+		}
 	</script>
   </body>
 </html>
