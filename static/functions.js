@@ -140,12 +140,14 @@ function reset(){
 	x_coefficient = Math.floor((Math.random() * 9) + 2);
 	left_const = Math.floor((Math.random() * 10) + 1);
 	right_const = Math.floor((Math.random() * 10) + 1);
+	ops = ['+', '-']
+	op = ops[Math.floor(Math.random()*2)]
 
 	x_coefficient_span = '<span class="variable" id="x-coefficient">' + x_coefficient + '</span>'
 	left_const_span = '<span class="variable" id="left-const">' + left_const + '</span>'
 	right_const_span = '<span class="variable">' + right_const + '</span>'
 
-	$('#left-side').append(x_coefficient_span + 'x + ' + left_const_span)
+	$('#left-side').append(x_coefficient_span + 'x ' + op + ' ' + left_const_span)
 	$('#right-side').append(right_const_span)
 
 	$('#msg').empty()
@@ -177,6 +179,18 @@ function unhighlight_vars(){
 
 function highlight_button(selector){
 	$(selector).addClass('highlighted-button')
+
+	op = $(selector).attr('op') // get the 'op' attribute of the appropriate button
+
+	/* Change the image based on the operator
+
+	if (op == '+'){
+		$(selector).attr('src', 'static/[filename of new plus image]')
+	} else if (op == '-'){
+		...
+	}....... 
+
+	*/
 
 	// do highlighting here or add CSS rules for highlighted buton
 }
