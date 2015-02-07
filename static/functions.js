@@ -1,6 +1,6 @@
-function init(){
+$( document ).ready(function() {
     window.variable_letter = $('#variable').text()
-}
+});
 
 function operation(clicked){
 	op = $(clicked).attr("op")
