@@ -29,43 +29,32 @@
     <br>
     <br>
     <span id="buttons">
-		<button id="add" class="btn btn-lg btn-default" onclick="add()">+</button>
-		<button id="sub" class="btn btn-lg btn-default" onclick="subtract()">-</button>
-		<button id="mult" class="btn btn-lg btn-default" onclick="multiply()">*</button>
-		<button id="divide" class="btn btn-lg btn-default" onclick="divide()">/</button>
+		<button id="add" class="btn btn-lg btn-default" onclick="operation(this)">+</button>
+		<button id="sub" class="btn btn-lg btn-default" onclick="operation(this)">-</button>
+		<button id="mult" class="btn btn-lg btn-default" onclick="operation(this)">*</button>
+		<button id="divide" class="btn btn-lg btn-default" onclick="operation(this)">/</button>
 	</span>
 	<br>
 	<script>
-		function add(){
-			$('.variable').attr("onclick", "add_sub('+', this)")
-			$('.variable').attr("style", "background:cyan")
-			$('#add').removeClass('btn-default').addClass('btn-info')
-			add_cancel_button("add")
-		}
-
-		function subtract(){
-			$('.variable').attr("onclick", "add_sub('-', this)")
-			$('.variable').attr("style", "background:cyan")
-			$('#sub').removeClass('btn-default').addClass('btn-info')
-			add_cancel_button("sub")
-		}
-
-		function multiply(){
-			$('.variable').attr("onclick", "mult_div('*', this)")
-			$('.variable').attr("style", "background:cyan")
-			$('#mult').removeClass('btn-default').addClass('btn-info')
-			add_cancel_button("mult")
-		}
-
-		function divide(){
-			$('.variable').attr("onclick", "mult_div('/', this)")
-			$('.variable').attr("style", "background:cyan")
-			$('#divide').removeClass('btn-default').addClass('btn-info')
-			add_cancel_button("divide")
+		function operation(clicked){
+			op = $(clicked).text()
+			$('.variable').attr("onclick")
+			if (op == '+' || op == '-'){
+				console.log("add_sub(" + op + ", this)")
+				$('.variable').attr('onclick', "add_sub('" + op + "', this)")
+			} else {
+				$('.variable').attr('onclick', "mult_div('" + op + "', this)")
+			}
+			highlight_vars()
+			add_cancel_button(get_id_from_op(op))
 		}
 
 		function add_cancel_button(id){
 			$('#buttons').append('<button id="cancel-button" class="btn btn-lg btn-danger" onclick="cancel(\'#'+id+'\')">Cancel</button>')
+		}
+
+		function highlight_vars(){
+			$('.variable').attr("style", "background:cyan")
 		}
 
 		function cancel(elem){
