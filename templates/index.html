@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='js-expression-eval/parser.js') }}"></script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +16,6 @@
   </head>
   <body>
     <h1>Algebrator</h1>
-    <br>
     <br>
     <span id="left-side" class="side">
     	<span class="variable">{{ a }}</span>x 
@@ -35,6 +35,7 @@
 		<button id="divide" class="btn btn-lg btn-default" onclick="operation(this)">/</button>
 	</span>
 	<br>
+	<button id="simplify" class="btn btn-lg btn-default" onclick="simplify()">Simplify</button>
 	<script>
 		function operation(clicked){
 			op = $(clicked).text()
@@ -100,6 +101,28 @@
 
 			cancel(get_id_from_op(op))
 
+		}
+
+		function simplify(){
+			left = $('#left-side').text() // get left side, strip tags from it
+			right = $('#right-side').text() // get right side, strip tags from it
+
+			left = left.replace(/\s/g, "") 
+			right = right.replace(/\s/g, "")
+
+			left = eval_with_var(left)
+			right = eval(right)
+
+		}
+
+		function eval_with_var(expr){
+			expr = expr.split(')').join('').split('(').join('') // remove parens
+			console.log(expr)
+
+			x_index = left.indexOf('x')
+			factor = left.substring(0, x_index)
+ 
+ 			
 		}
 
 	</script>
