@@ -226,8 +226,16 @@ function unhighlight_button(){
 
 function grayout_buttons(){
 	// give the buttons the appearance of being disabled
+	$('[op="+"]').attr('src', 'static/Plus_gray.png')
+	$('[op="-"]').attr('src', 'static/Minus_gray.png')
+	$('[op="*"]').attr('src', 'static/Times_gray.png')
+	$('[op="/"]').attr('src', 'static/Div_gray.png')
 }
 
 function un_grayout_buttons(){
 	// return the buttons to their original appearance
+	$('[op="+"]').attr('src', 'static/Plus3.png')
+	$('[op="-"]').attr('src', 'static/Minus3.png')
+	$('[op="*"]').attr('src', 'static/Times3.png')
+	$('[op="/"]').attr('src', 'static/Div3.png')
 }

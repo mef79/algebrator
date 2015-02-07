@@ -17,7 +17,7 @@
     <div id="title-div">
     	<img src="{{ url_for('static', filename='Title.png') }}">
 	</div>	
-    <br>
+    <div style="height:100px"></div>
     <div id="equation">
 	    <span id="left-side" class="side">
 	    	<span class="number" id="coefficient">{{ a }}</span><span id="variable">{{ letter }}</span> {{ op }} 
@@ -28,8 +28,7 @@
 	    	<span class="number">{{ c }}</span>
 	    </span>
 	</div>
-    <br>
-
+    <div style="height:100px"></div>
     <div id="buttons">
 
     	<img src="{{ url_for('static', filename='Plus3.png') }}" onclick="operation(this)" op="+" class="op-button">
@@ -44,7 +43,7 @@
     	<img id="simplify-button" src="{{ url_for('static', filename='Simplify.png') }}" onclick="simplify()">
     </div>
 	<div id="msg">
-		This is the letter being used: {{ letter }}
+
 	</div>
 	</div>
   </body>
