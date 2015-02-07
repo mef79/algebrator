@@ -24,6 +24,10 @@ function add_cancel_button(op){
 	$('#buttons').append('<button id="cancel-button" class="btn btn-lg btn-danger" onclick="cancel(\''+id+'\')">Cancel</button>')
 }
 
+function add_solve_again_button(){
+	$('#msg').append('<button id="again-button" class="btn btn-lg btn-info" onclick="reset()">Solve Again</button>')
+}
+
 function cancel(elem){
 	$('.variable').attr("onclick", "")
 	unhighlight_vars()
@@ -124,12 +128,39 @@ function check_complete(){
 
 function end_round(){
 	$('#msg').append("You've solved for x!")
+	add_solve_again_button()
 	disable_buttons()
 	grayout_buttons()
 }
 
+function reset(){
+	$('#left-side').empty()
+	$('#right-side').empty()
+
+	x_coefficient = Math.floor((Math.random() * 9) + 2);
+	left_const = Math.floor((Math.random() * 10) + 1);
+	right_const = Math.floor((Math.random() * 10) + 1);
+	ops = ['+', '-']
+	op = ops[Math.floor(Math.random()*2)]
+
+	x_coefficient_span = '<span class="variable" id="x-coefficient">' + x_coefficient + '</span>'
+	left_const_span = '<span class="variable" id="left-const">' + left_const + '</span>'
+	right_const_span = '<span class="variable">' + right_const + '</span>'
+
+	$('#left-side').append(x_coefficient_span + 'x ' + op + ' ' + left_const_span)
+	$('#right-side').append(right_const_span)
+
+	$('#msg').empty()
+	reenable_buttons()
+	un_grayout_buttons()
+}
+
 function disable_buttons(){
-	$('#buttons').attr('onclick', "")
+	$('.op-button').attr('onclick', "")
+}
+
+function reenable_buttons(){
+	$('.op-button').attr('onclick', 'operation(this)')
 }
 
 function remove_whitespace(e){
@@ -149,14 +180,39 @@ function unhighlight_vars(){
 function highlight_button(selector){
 	$(selector).addClass('highlighted-button')
 
-	// do highlighting here or add CSS rules for highlighted buton
+	op = $(selector).attr('op') // get the 'op' attribute of the appropriate button
+
+	/* Change the image based on the operator
+
+	if (op == '+'){
+		$(selector).attr('src', 'static/[filename of new plus image]')
+	} else if (op == '-'){
+		...
+	}....... 
+
+	*/
 }
 
 function unhighlight_button(){
 	highlighted_button = $('.highlighted-button')
 	highlighted_button.removeClass('highlighted-button')
+	op = highlighted_button.attr('op')
+
+	if (op == '+'){
+		highlighted_button.attr('src', 'static/Plus3.jpg')
+	} else if (op == '-'){
+		highlighted_button.attr('src', 'static/Minus3.jpg')
+	} else if (op == '*'){
+		highlighted_button.attr('src', 'static/Times3.jpg')
+	} else {
+		highlighted_button.attr('src', 'static/Div3.jpg')
+	}
 }
 
 function grayout_buttons(){
 	// give the buttons the appearance of being disabled
+}
+
+function un_grayout_buttons(){
+	// return the buttons to their original appearance
 }
