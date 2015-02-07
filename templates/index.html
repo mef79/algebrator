@@ -17,13 +17,13 @@
     <h1>Algebrator</h1>
     <br>
     <br>
-    <span id="left-side">
+    <span id="left-side" class="side">
     	<span id="a" class="variable">{{ a }}</span>x 
     	+ 
     	<span id="b" class="variable">{{ b }}</span>
     </span>
     	= 
-    <span id="right-side">
+    <span id="right-side" class="side">
     	<span id="c" class="variable">{{ c }}</span>
     </span>
     <br>
@@ -39,12 +39,12 @@
 		c = parseInt($('#c').text())
 
 		function add(){
-			$('.variable').attr("onclick", "add_variable(this)")
+			$('.variable').attr("onclick", "add_sub('+', this)")
 			$('.variable').attr("style", "background:cyan")
 		}
 
 		function subtract(){
-			$('.variable').attr("onclick", "subtract_variable(this)")
+			$('.variable').attr("onclick", "add_sub('-', this)")
 			$('.variable').attr("style", "background:cyan")
 		}
 
@@ -58,35 +58,23 @@
 			$('.variable').attr("style", "background:cyan")
 		}
 
-		function add_variable(clicked){
+		function add_sub(op, clicked){
 			v = $(clicked).text()
-			$('#left-side').append("+ <span class='variable'>" + v + "</span> ")
-			$('#right-side').append("+ <span class='variable'>" + v + "</span> ")
+			$('.side').append(" " + op + " <span class='variable'>" + v + "</span> ")
 			$('.variable').attr("style", "background:white")
-		}
-
-		function subtract_variable(clicked){
-			v = $(clicked).text()
-			$('#left-side').append("- <span class='variable'>" + v + "</span> ")
-			$('#right-side').append("- <span class='variable'>" + v + "</span> ")
-			$('.variable').attr("style", "background:white")
+			$('.variable').attr("onclick", "")
 		}
 
 		function mult_div(op, clicked){
 			v = $(clicked).text()
 
-			// put parentheses around left side and right side
-			$('#left-side').prepend('(')
-			$('#right-side').prepend('(')
+			// surround both sides with parentheses
+			$('.side').prepend('(').append(')')
 
-			$('#right-side').append(')')
-			$('#left-side').append(')')
-			// add * v to each side
-
-			$('#left-side').append(op + ' <span class="variable">' + v + '</span>')
-			$('#right-side').append(op + ' <span class="variable">' + v + '</span>')
+			$('.side').append(" " + op + ' <span class="variable">' + v + '</span> ')
 
 			$('.variable').attr("style", "background:white")
+			$('.variable').attr("onclick", "")
 
 		}
 
