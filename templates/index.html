@@ -32,14 +32,19 @@
     	<!-- 
 
 		Example for the add button
+          -->
     	<img src="{{ url_for('static', filename='Plus.jpg') }}" onclick="operation(this)" op="+">
+      <img src="{{ url_for('static', filename='Minus.jpg') }}" onclick="operation(this)" op="-">
+      <img src="{{ url_for('static', filename='Times.jpg') }}" onclick="operation(this)" op="+">
+      <img src="{{ url_for('static', filename='Div.jpg') }}" onclick="operation(this)" op="+">
 
-    	-->
 
+      <!--
 		<button id="add" class="btn btn-lg btn-default" onclick="operation(this)" op="+">+</button>
 		<button id="sub" class="btn btn-lg btn-default" onclick="operation(this)" op="-">-</button>
 		<button id="mult" class="btn btn-lg btn-default" onclick="operation(this)" op="*">*</button>
 		<button id="divide" class="btn btn-lg btn-default" onclick="operation(this)" op="/">/</button>
+  -->
 	</span>
 	<br>
 	<button id="simplify" class="btn btn-lg btn-default" onclick="simplify()">Simplify</button>
