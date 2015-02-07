@@ -1,9 +1,13 @@
+$( document ).ready(function() {
+    window.variable_letter = $('#variable').text()
+});
+
 function operation(clicked){
 	op = $(clicked).attr("op")
 	id = $(clicked).attr("id")
 
-	add_functions_to_vars(op) 	// add onclick functions to variables
-	highlight_vars() 			// highlight all variables
+	add_functions_to_vars(op) 	// add onclick functions to numbers
+	highlight_vars() 			// highlight all numbers
 	highlight_button('#' + id)	// highlight appropriate button
 	add_cancel_button(op)		// add cancel button for appropriate operator
 	disable_buttons()
@@ -12,10 +16,10 @@ function operation(clicked){
 function add_functions_to_vars(op){
 	if (op == '+' || op == '-'){
 		// the non-paretheses operations
-		$('.variable').attr('onclick', "add_sub('" + op + "', this)")
+		$('.number').attr('onclick', "add_sub('" + op + "', this)")
 	} else {
 		// operations that get parentheses
-		$('.variable').attr('onclick', "mult_div('" + op + "', this)")
+		$('.number').attr('onclick', "mult_div('" + op + "', this)")
 	}
 }
 
@@ -30,7 +34,7 @@ function add_solve_again_button(){
 }
 
 function cancel(elem){
-	$('.variable').attr("onclick", "")
+	$('.number').attr("onclick", "")
 	unhighlight_vars()
 	unhighlight_button()
 	reenable_buttons()
@@ -56,7 +60,7 @@ function add_sub(op, clicked){
 	v = $(clicked).text()
 
 	// insert operator followed by the number
-	$('.side').append(" " + op + " <span class='variable'>" + v + "</span> ")
+	$('.side').append(" " + op + " <span class='number'>" + v + "</span> ")
 
 	cancel(get_id_from_op(op))
 }
@@ -68,7 +72,7 @@ function mult_div(op, clicked){
 	$('.side').prepend('(').append(')')
 
 	// insert operator followed by the number after the parentheses
-	$('.side').append(" " + op + ' <span class="variable">' + v + '</span> ')
+	$('.side').append(" " + op + ' <span class="number">' + v + '</span> ')
 
 	cancel(get_id_from_op(op))
 
@@ -81,7 +85,7 @@ function simplify(){
 	left = remove_whitespace(left)
 	right = remove_whitespace(right)
 
-	left = left.replace('x', 'i')
+	left = left.replace(window.variable_letter, 'i')
 
 	l = math.eval(left)
 	r = math.eval(right)
@@ -97,19 +101,19 @@ function simplify(){
 		op = '+ '
 	}
 
-	$('#left-side').append('<span class="variable" id="x-coefficient">' + l.im + '</span>x <span id="op">' + op + ' </span><span class="variable" id="left-const">' + left_const + '</span>')
+	$('#left-side').append('<span class="number" id="coefficient">' + l.im + '</span>' + window.variable_letter + ' <span id="op">' + op + ' </span><span class="number" id="left-const">' + left_const + '</span>')
 
-	$('#right-side').append('<span class="variable">' + r + '</span>')
+	$('#right-side').append('<span class="number">' + r + '</span>')
 
 	clean()
 
 }
 
 function clean(){
-	x_coefficient = $('#x-coefficient')
-	if (x_coefficient.text() == '1' || x_coefficient.text() == '-1'){
-		t = x_coefficient.text()
-		x_coefficient.text(t.replace('1', ''))
+	coefficient = $('#coefficient')
+	if (coefficient.text() == '1' || coefficient.text() == '-1'){
+		t = coefficient.text()
+		coefficient.text(t.replace('1', ''))
 	}
 
 	left_const = $('#left-const')
@@ -121,15 +125,20 @@ function clean(){
 	check_complete()
 }
 
+function is_letter_by_itself(expr){
+	return expr.length == 1 && expr.match(/[a-z]/i);
+}
+
 function check_complete(){
 	left_side = remove_whitespace($('#left-side').text())
-	if (left_side == 'x'){
+	right_side = remove_whitespace($('#right-side').text())
+	if (is_letter_by_itself(left_side) || is_letter_by_itself(right_side)) {
 		end_round()
 	}
 }
 
 function end_round(){
-	$('#msg').append("You've solved for x!")
+	$('#msg').append("You've solved for " + window.variable_letter + "!")
 	add_solve_again_button()
 	disable_buttons()
 }
@@ -138,17 +147,17 @@ function reset(){
 	$('#left-side').empty()
 	$('#right-side').empty()
 
-	x_coefficient = Math.floor((Math.random() * 9) + 2);
+	coefficient = Math.floor((Math.random() * 9) + 2);
 	left_const = Math.floor((Math.random() * 10) + 1);
 	right_const = Math.floor((Math.random() * 10) + 1);
 	ops = ['+', '-']
 	op = ops[Math.floor(Math.random()*2)]
 
-	x_coefficient_span = '<span class="variable" id="x-coefficient">' + x_coefficient + '</span>'
-	left_const_span = '<span class="variable" id="left-const">' + left_const + '</span>'
-	right_const_span = '<span class="variable">' + right_const + '</span>'
+	coefficient_span = '<span class="number" id="coefficient">' + coefficient + '</span>'
+	left_const_span = '<span class="number" id="left-const">' + left_const + '</span>'
+	right_const_span = '<span class="number">' + right_const + '</span>'
 
-	$('#left-side').append(x_coefficient_span + 'x ' + op + ' ' + left_const_span)
+	$('#left-side').append(coefficient_span + window.variable_letter + ' ' + op + ' ' + left_const_span)
 	$('#right-side').append(right_const_span)
 
 	$('#msg').empty()
@@ -174,11 +183,11 @@ function remove_whitespace(e){
 // functions to change appearances of html elements
 
 function highlight_vars(){
-	$('.variable').attr("style", "background:cyan")
+	$('.number').attr("style", "background:cyan")
 }
 
 function unhighlight_vars(){
-	$('.variable').attr("style", "background:white")
+	$('.number').attr("style", "background:white")
 }
 
 function highlight_button(selector){
