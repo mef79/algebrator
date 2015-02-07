@@ -18,49 +18,71 @@
     <br>
     <br>
     <span id="left-side" class="side">
-    	<span id="a" class="variable">{{ a }}</span>x 
+    	<span class="variable">{{ a }}</span>x 
     	+ 
-    	<span id="b" class="variable">{{ b }}</span>
+    	<span class="variable">{{ b }}</span>
     </span>
     	= 
     <span id="right-side" class="side">
-    	<span id="c" class="variable">{{ c }}</span>
+    	<span class="variable">{{ c }}</span>
     </span>
     <br>
     <br>
-	<button class="btn btn-lg btn-default" onclick="add()">+</button>
-	<button class="btn btn-lg btn-default" onclick="subtract()">-</button>
-	<button class="btn btn-lg btn-default" onclick="multiply()">*</button>
-	<button class="btn btn-lg btn-default" onclick="divide()">/</button>
+    <span id="buttons">
+		<button id="add" class="btn btn-lg btn-default" onclick="add()">+</button>
+		<button id="sub" class="btn btn-lg btn-default" onclick="subtract()">-</button>
+		<button id="mult" class="btn btn-lg btn-default" onclick="multiply()">*</button>
+		<button id="divide" class="btn btn-lg btn-default" onclick="divide()">/</button>
+	</span>
 	<br>
 	<script>
-		a = parseInt($('#a').text())
-		b = parseInt($('#b').text())
-		c = parseInt($('#c').text())
-
 		function add(){
 			$('.variable').attr("onclick", "add_sub('+', this)")
 			$('.variable').attr("style", "background:cyan")
+			$('#add').removeClass('btn-default').addClass('btn-info')
+			add_cancel_button("add")
 		}
 
 		function subtract(){
 			$('.variable').attr("onclick", "add_sub('-', this)")
 			$('.variable').attr("style", "background:cyan")
+			$('#sub').removeClass('btn-default').addClass('btn-info')
+			add_cancel_button("sub")
 		}
 
 		function multiply(){
 			$('.variable').attr("onclick", "mult_div('*', this)")
 			$('.variable').attr("style", "background:cyan")
+			$('#mult').removeClass('btn-default').addClass('btn-info')
+			add_cancel_button("mult")
 		}
 
 		function divide(){
 			$('.variable').attr("onclick", "mult_div('/', this)")
 			$('.variable').attr("style", "background:cyan")
+			$('#divide').removeClass('btn-default').addClass('btn-info')
+			add_cancel_button("divide")
+		}
+
+		function add_cancel_button(id){
+			$('#buttons').append('<button id="cancel-button" class="btn btn-lg btn-danger" onclick="cancel(\'#'+id+'\')">Cancel</button>')
+		}
+
+		function cancel(elem){
+			$('.variable').attr("onclick", "")
+			$('.variable').attr("style", "background:white")
+			$(elem).removeClass('btn-info')
+			$(elem).addClass('btn-default')
+			$('#cancel-button').remove()
 		}
 
 		function add_sub(op, clicked){
 			v = $(clicked).text()
+
+			// insert operator followed by the number
 			$('.side').append(" " + op + " <span class='variable'>" + v + "</span> ")
+
+			// revert attributes of variable spans
 			$('.variable').attr("style", "background:white")
 			$('.variable').attr("onclick", "")
 		}
@@ -71,16 +93,15 @@
 			// surround both sides with parentheses
 			$('.side').prepend('(').append(')')
 
+			// insert operator followed by the number after the parentheses
 			$('.side').append(" " + op + ' <span class="variable">' + v + '</span> ')
 
+			// revert attributes of variable spans
 			$('.variable').attr("style", "background:white")
 			$('.variable').attr("onclick", "")
 
 		}
 
-		function divide_variable(clicked){
-
-		}
 	</script>
   </body>
 </html>
