@@ -28,3 +28,7 @@ body {
 #msg{
 	text-align: center;
 }
+
+#init{
+	visibility:hidden;
+}

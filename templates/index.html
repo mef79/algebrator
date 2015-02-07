@@ -14,37 +14,41 @@
   </head>
 	<body>
 	<div id="wrapper">
-    <div id="title-div">
-    	<img src="{{ url_for('static', filename='Title.png') }}">
-	</div>	
-    <div style="height:100px"></div>
-    <div id="equation">
-	    <span id="left-side" class="side">
-	    	<span class="number" id="coefficient">{{ a }}</span><span id="variable">{{ letter }}</span> {{ op }} 
-	    	<span class="number" id="left-const">{{ b }}</span>
-	    </span>
-	    	= 
-	    <span id="right-side" class="side">
-	    	<span class="number">{{ c }}</span>
-	    </span>
-	</div>
-    <div style="height:100px"></div>
-    <div id="buttons">
+	    <div id="title-div">
+	    	<img src="{{ url_for('static', filename='Title.png') }}">
+		</div>	
+	    <div style="height:100px"></div>
+	    <div id="equation">
+		    <span id="left-side" class="side">
+		    </span>
+		    	= 
+		    <span id="right-side" class="side">
+		    </span>
+		</div>
+	    <div style="height:100px"></div>
+	    <div id="buttons">
 
-    	<img src="{{ url_for('static', filename='Plus3.png') }}" onclick="operation(this)" op="+" class="op-button">
-      	<img src="{{ url_for('static', filename='Minus3.png') }}" onclick="operation(this)" op="-" class="op-button">
-      	<img src="{{ url_for('static', filename='Times3.png') }}" onclick="operation(this)" op="*" class="op-button">
-      	<img src="{{ url_for('static', filename='Div3.png') }}" onclick="operation(this)" op="/" class="op-button">
+	    	<img src="{{ url_for('static', filename='Plus3.png') }}" onclick="operation(this)" op="+" class="op-button">
+	      	<img src="{{ url_for('static', filename='Minus3.png') }}" onclick="operation(this)" op="-" class="op-button">
+	      	<img src="{{ url_for('static', filename='Times3.png') }}" onclick="operation(this)" op="*" class="op-button">
+	      	<img src="{{ url_for('static', filename='Div3.png') }}" onclick="operation(this)" op="/" class="op-button">
 
-	</div>
+		</div>
 
-	<br>
-	<div id="simplify-div">
-    	<img id="simplify-button" src="{{ url_for('static', filename='Simplify.png') }}" onclick="simplify()">
-    </div>
-	<div id="msg">
+		<br>
+		<div id="simplify-div">
+	    	<img id="simplify-button" src="{{ url_for('static', filename='Simplify.png') }}" onclick="simplify()">
+	    </div>
+		<div id="msg">
 
-	</div>
+		</div>
 	</div>
   </body>
+
+  <script>
+	$( document ).ready(function() {
+	    variable_letter = $('#variable').text()
+	    generate_equation({{a}}, {{b}}, {{c}}, {{d}}, "{{lop}}", "{{rop}}", "{{letter}}")
+	});
+  </script>
 </html>

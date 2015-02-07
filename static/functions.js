@@ -1,8 +1,44 @@
 var variable_letter;
+var variable_side;
 
-$( document ).ready(function() {
-    variable_letter = $('#variable').text()
-});
+function generate_equation(a, b, c, d, lop, rop, letter){
+	variable_letter = letter
+	if (a == 0){
+		variable_side = 'r'
+	} else {
+		variable_side = 'l'
+	}
+
+	left_expr = construct_expr("left", a, b, lop)
+	right_expr = construct_expr("right", c, d, rop)
+
+	$('#left-side').append(left_expr)
+	$('#right-side').append(right_expr)
+}
+
+function construct_expr(side, coefficient, constant, op){
+	if (coefficient != 0){
+		coefficient_span = "<span id='" + side + "-coefficient' class='number'>" + coefficient + "</span>"
+		var_span = "<span id='" + side + "-var'>" + variable_letter + "</span> "
+		op_span = "<span id='" + side + "-op'>" + op + "</span> "
+	} else {
+		coefficient_span = ''
+		var_span = ''
+		op_span = ''
+	}
+	const_span = "<span id='" + side + "-const' class='number'>" + constant + "</span>"
+
+	return coefficient_span + var_span + op_span + const_span
+
+}
+
+function random_n_in_range(low, high){
+	return 
+}
+
+function random_letter(){
+
+}
 
 function operation(clicked){
 	op = $(clicked).attr("op")
@@ -87,41 +123,62 @@ function simplify(){
 	left = remove_whitespace(left)
 	right = remove_whitespace(right)
 
+	// replace letters with i, hack to use mathjs library for simplification
 	left = left.replace(variable_letter, 'i')
+	right = right.replace(variable_letter, 'i')
 
 	l = math.eval(left)
 	r = math.eval(right)
 
 	$('.side').empty()
 
-	left_const = l.re
+	if (typeof(l) == 'number'){
+		constant = l
+	} else {
+		constant = r
+	}
 
-	if (left_const < 0){
+	if (constant < 0){
 		op = '- '
-		left_const = Math.abs(left_const)
+		constant = Math.abs(constant)
 	} else {
 		op = '+ '
 	}
 
-	$('#left-side').append('<span class="number" id="coefficient">' + l.im + '</span>' + variable_letter + ' <span id="op">' + op + ' </span><span class="number" id="left-const">' + left_const + '</span>')
+	if (variable_side == 'l'){
+		left_expr = construct_expr("left", l.im, l.re, op)
+		right_expr = construct_expr("right", 0, 0, '')
+	} else {
+		right_expr = construct_expr("right", r.im, r.re, op)
+		left_expr = construct_expr("left", 0, 0, '')
+	}
 
-	$('#right-side').append('<span class="number">' + r + '</span>')
+	$('#left-side').append(left_expr)
+	$('#right-side').append(right_expr)
 
 	clean()
 
 }
 
 function clean(){
-	coefficient = $('#coefficient')
+	if (variable_side == 'l'){
+		coefficient = $('#left-coefficient')
+		constant = $('#left-const')
+		op = $('#left-op')
+	} else {
+		coefficient = $('#right-coefficient')
+		constant = $('#right-const')
+		op = $('#right-op')
+	}
+	
 	if (coefficient.text() == '1' || coefficient.text() == '-1'){
 		t = coefficient.text()
 		coefficient.text(t.replace('1', ''))
 	}
 
-	left_const = $('#left-const')
-	if (left_const.text() == '0'){
-		$('#op').remove()
-		left_const.text('')
+	if (constant.text() == '0'){
+		op.remove()
+		constant.text('')
 	}
 
 	check_complete()
