@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/1.2.0/math.min.js"></script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +48,6 @@
 			op = $(clicked).attr("op")
 			$('.variable').attr("onclick")
 			if (op == '+' || op == '-'){
-				console.log("add_sub(" + op + 	", this)")
 				$('.variable').attr('onclick', "add_sub('" + op + "', this)")
 			} else {
 				$('.variable').attr('onclick', "mult_div('" + op + "', this)")
@@ -116,20 +116,21 @@
 			left = left.replace(/\s/g, "") 
 			right = right.replace(/\s/g, "")
 
-			left = eval_with_var(left)
-			right = eval(right)
+			left = left.replace('x', 'i')
+
+			l = math.eval(left)
+			r = math.eval(right)
+
+			console.log(r)
+
+			$('.side').empty()
+
+			$('#left-side').append('<span class="variable">' + l.im + '</span>x + <span class="variable">' + l.re + '</span>')
+
+			$('#right-side').append('<span class="variable">' + r + '</span>')
 
 		}
 
-		function eval_with_var(expr){
-			expr = expr.split(')').join('').split('(').join('') // remove parens
-			console.log(expr)
-
-			x_index = left.indexOf('x')
-			factor = left.substring(0, x_index)
- 
-
-		}
 
 	</script>
   </body>
