@@ -3,7 +3,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script src="{{ url_for('static', filename='js-expression-eval/parser.js') }}"></script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,19 +28,26 @@
     <br>
     <br>
     <span id="buttons">
-		<button id="add" class="btn btn-lg btn-default" onclick="operation(this)">+</button>
-		<button id="sub" class="btn btn-lg btn-default" onclick="operation(this)">-</button>
-		<button id="mult" class="btn btn-lg btn-default" onclick="operation(this)">*</button>
-		<button id="divide" class="btn btn-lg btn-default" onclick="operation(this)">/</button>
+    	<!-- 
+
+		Example for the add button
+    	<img src="path_to_add_button" onclick="operation(this)" op="+">
+
+    	-->
+
+		<button id="add" class="btn btn-lg btn-default" onclick="operation(this)" op="+">+</button>
+		<button id="sub" class="btn btn-lg btn-default" onclick="operation(this)" op="-">-</button>
+		<button id="mult" class="btn btn-lg btn-default" onclick="operation(this)" op="*">*</button>
+		<button id="divide" class="btn btn-lg btn-default" onclick="operation(this)" op="/">/</button>
 	</span>
 	<br>
 	<button id="simplify" class="btn btn-lg btn-default" onclick="simplify()">Simplify</button>
 	<script>
 		function operation(clicked){
-			op = $(clicked).text()
+			op = $(clicked).attr("op")
 			$('.variable').attr("onclick")
 			if (op == '+' || op == '-'){
-				console.log("add_sub(" + op + ", this)")
+				console.log("add_sub(" + op + 	", this)")
 				$('.variable').attr('onclick', "add_sub('" + op + "', this)")
 			} else {
 				$('.variable').attr('onclick', "mult_div('" + op + "', this)")
@@ -122,7 +128,7 @@
 			x_index = left.indexOf('x')
 			factor = left.substring(0, x_index)
  
- 			
+
 		}
 
 	</script>
