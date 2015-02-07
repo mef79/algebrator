@@ -1,6 +1,7 @@
 <!doctype html>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/1.2.0/math.min.js"></script>
@@ -15,17 +16,7 @@
     <title>Algebrator</title>
 
   </head>
-
-
-    <div style="background-image:src="{{ url_for('static', filename='graph.png') }}"">
-  </div
-body {
-    background-image: url_for('static', filename='graph.png');
-} 
-  
-
-  <body>
-
+	<body>
     <h1><img src="{{ url_for('static', filename='Title.png') }}" <h1>
     <br>
     <span id="left-side" class="side">
