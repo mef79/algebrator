@@ -117,11 +117,19 @@ function clean(){
 
 function check_complete(){
 	left_side = remove_whitespace($('#left-side').text())
-	console.log(left_side)
-	console.log(left_side == 'x')
 	if (left_side == 'x'){
-		$('#msg').append("You've solved for x!")
+		end_round()
 	}
+}
+
+function end_round(){
+	$('#msg').append("You've solved for x!")
+	disable_buttons()
+	grayout_buttons()
+}
+
+function disable_buttons(){
+	$('#buttons').attr('onclick', "")
 }
 
 function remove_whitespace(e){
@@ -139,7 +147,6 @@ function unhighlight_vars(){
 }
 
 function highlight_button(selector){
-	console.log('Button highlighted, selector: ' + selector)
 	$(selector).addClass('highlighted-button')
 
 	// do highlighting here or add CSS rules for highlighted buton
@@ -147,6 +154,9 @@ function highlight_button(selector){
 
 function unhighlight_button(){
 	highlighted_button = $('.highlighted-button')
-	console.log('Button to unhighlight identified, selector: #' + highlighted_button.attr('id'))
 	highlighted_button.removeClass('highlighted-button')
+}
+
+function grayout_buttons(){
+	// give the buttons the appearance of being disabled
 }
