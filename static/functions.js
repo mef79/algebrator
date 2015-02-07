@@ -191,13 +191,22 @@ function highlight_button(selector){
 	}....... 
 
 	*/
-
-	// do highlighting here or add CSS rules for highlighted buton
 }
 
 function unhighlight_button(){
 	highlighted_button = $('.highlighted-button')
 	highlighted_button.removeClass('highlighted-button')
+	op = highlighted_button.attr('op')
+
+	if (op == '+'){
+		highlighted_button.attr('src', 'static/Plus3.jpg')
+	} else if (op == '-'){
+		highlighted_button.attr('src', 'static/Minus3.jpg')
+	} else if (op == '*'){
+		highlighted_button.attr('src', 'static/Times3.jpg')
+	} else {
+		highlighted_button.attr('src', 'static/Div3.jpg')
+	}
 }
 
 function grayout_buttons(){
