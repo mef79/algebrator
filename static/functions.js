@@ -1,5 +1,88 @@
 var variable_letter;
 var variable_side;
+var buttons_enabled = true;
+var solved = false;
+var current_op;
+
+$(document).keydown(function(e){
+
+	//alert(e.keyCode)
+
+	if (buttons_enabled) {
+		if (e.keyCode == 13){
+		    simplify()
+		}
+
+		if (e.keyCode == 187){
+			operation($('[op="+"]'))
+			current_op = '+'
+		}
+
+		if (e.keyCode == 189){
+			operation($('[op="-"]'))
+			current_op = '-'
+		}
+
+		if (e.keyCode == 56){
+			operation($('[op="*"]'))
+			current_op = '*'
+		}
+
+		if (e.keyCode == 191){
+			operation($('[op="/"]'))
+			current_op = '/'
+		} 
+	} else if (!solved) {
+		if (e.keyCode == 49){
+			op_from_n('1')
+		}
+		if (e.keyCode == 50){
+			op_from_n('2')
+		}
+		if (e.keyCode == 51){
+			op_from_n('3')
+		}
+		if (e.keyCode == 52){
+			op_from_n('4')
+		}
+		if (e.keyCode == 53){
+			op_from_n('5')
+		}
+		if (e.keyCode == 54){
+			op_from_n('6')
+		}
+		if (e.keyCode == 55){
+			op_from_n('7')
+		}
+		if (e.keyCode == 56){
+			op_from_n('8')
+		}
+		if (e.keyCode == 57){
+			op_from_n('9')
+		}
+	}
+
+	if (e.keyCode == 27){
+		cancel()
+	}
+
+	if (solved && !buttons_enabled){
+		console.log('solved')
+		if (e.keyCode == 82){
+			reset()
+		}
+	}
+
+
+});
+
+function op_from_n(n) {
+	if (current_op == '+' || current_op == '-'){
+		add_sub(current_op, n)
+	} else {
+		mult_div(current_op, n)
+	}
+}
 
 function generate_equation(a, b, c, d, lop, rop, letter){
 	variable_letter = letter
@@ -33,7 +116,7 @@ function construct_expr(side, coefficient, constant, op){
 }
 
 function random_n_in_range(low, high){
-	return 
+	
 }
 
 function random_letter(){
@@ -54,7 +137,7 @@ function operation(clicked){
 function add_functions_to_vars(op){
 	if (op == '+' || op == '-'){
 		// the non-paretheses operations
-		$('.number').attr('onclick', "add_sub('" + op + "', this)")
+		$('.number').attr('onclick', "add_sub_from_click('" + op + "', this)")
 	} else {
 		// operations that get parentheses
 		$('.number').attr('onclick', "mult_div('" + op + "', this)")
@@ -95,24 +178,24 @@ function get_id_from_op(op){
 	}
 }
 
-function add_sub(op, clicked){
-	v = $(clicked).text()
+function add_sub_from_click(op, clicked){
+	n = $(clicked).text()
+	add_sub(op, n)
+}
 
-	// insert operator followed by the number
-	$('.side').append(" " + op + " <span class='number'>" + v + "</span> ")
-
+function add_sub(op, n){
+	$('.side').append(" " + op + " <span class='number'>" + n + "</span> ")
 	cancel(get_id_from_op(op))
 }
 
-function mult_div(op, clicked){
-	v = $(clicked).text()
+function mult_div_from_click(op, clicked){
+	n = $(clicked).text()
+	mult_div(op, n)
+}
 
-	// surround both sides with parentheses
+function mult_div(op, n){
 	$('.side').prepend('(').append(')')
-
-	// insert operator followed by the number after the parentheses
-	$('.side').append(" " + op + ' <span class="number">' + v + '</span> ')
-
+	$('.side').append(" " + op + ' <span class="number">' + n + '</span> ')
 	cancel(get_id_from_op(op))
 
 }
@@ -148,10 +231,10 @@ function simplify(){
 
 	if (variable_side == 'l'){
 		left_expr = construct_expr("left", l.im, l.re, op)
-		right_expr = construct_expr("right", 0, 0, '')
+		right_expr = construct_expr("right", 0, r, '')
 	} else {
 		right_expr = construct_expr("right", r.im, r.re, op)
-		left_expr = construct_expr("left", 0, 0, '')
+		left_expr = construct_expr("left", 0, l, '')
 	}
 
 	$('#left-side').append(left_expr)
@@ -201,6 +284,7 @@ function end_round(){
 	$('#msg').append("You've solved for " + variable_letter + "!")
 	add_solve_again_button()
 	disable_buttons()
+	solved = true
 }
 
 function reset(){
@@ -222,15 +306,18 @@ function reset(){
 
 	$('#msg').empty()
 	reenable_buttons()
+	solved = false
 }
 
 function disable_buttons(){
+	buttons_enabled = false
 	$('.op-button').attr('onclick', "")
 	$('#simplify-button').attr('onclick', "")
 	grayout_buttons()
 }
 
 function reenable_buttons(){
+	buttons_enabled = true
 	$('.op-button').attr('onclick', 'operation(this)')
 	$('#simplify-button').attr('onclick', 'simplify()')
 	un_grayout_buttons()
@@ -254,16 +341,14 @@ function highlight_button(selector){
 	$(selector).addClass('highlighted-button')
 
 	op = $(selector).attr('op') // get the 'op' attribute of the appropriate button
-
-	/* Change the image based on the operator
-
+	/*
 	if (op == '+'){
 		$(selector).attr('src', 'static/[filename of new plus image]')
 	} else if (op == '-'){
+		$(selector).attr('src', 'static/')
 		...
-	}....... 
+	}....... */
 
-	*/
 }
 
 function unhighlight_button(){
