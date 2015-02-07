@@ -82,9 +82,22 @@
 			// insert operator followed by the number
 			$('.side').append(" " + op + " <span class='variable'>" + v + "</span> ")
 
-			// revert attributes of variable spans
-			$('.variable').attr("style", "background:white")
-			$('.variable').attr("onclick", "")
+			cancel(get_id_from_op(op))
+		}
+
+		function get_id_from_op(op){
+			if (op == '+'){
+				return "#add"
+			}
+			if (op == '-'){
+				return "#sub"
+			}
+			if (op == '*'){
+				return "#mult"
+			}
+			if (op == '/'){
+				return "#divide"
+			}
 		}
 
 		function mult_div(op, clicked){
@@ -96,9 +109,7 @@
 			// insert operator followed by the number after the parentheses
 			$('.side').append(" " + op + ' <span class="variable">' + v + '</span> ')
 
-			// revert attributes of variable spans
-			$('.variable').attr("style", "background:white")
-			$('.variable').attr("onclick", "")
+			cancel(get_id_from_op(op))
 
 		}
 
