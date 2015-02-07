@@ -11,11 +11,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Algebrator</title>
 
   </head>
+
+
+    <div style="background-image:src="{{ url_for('static', filename='graph.png') }}"">
+  </div
+body {
+    background-image: url_for('static', filename='graph.png');
+} 
+  
+
   <body>
-    <h1>Algebrator</h1>
+
+    <h1><img src="{{ url_for('static', filename='Title.png') }}" <h1>
     <br>
     <span id="left-side" class="side">
     	<span class="variable" id="x-coefficient">{{ a }}</span>x 
@@ -33,10 +44,10 @@
 
 		Example for the add button
           -->
-    	<img src="{{ url_for('static', filename='Plus.jpg') }}" onclick="operation(this)" op="+">
-      <img src="{{ url_for('static', filename='Minus.jpg') }}" onclick="operation(this)" op="-">
-      <img src="{{ url_for('static', filename='Times.jpg') }}" onclick="operation(this)" op="+">
-      <img src="{{ url_for('static', filename='Div.jpg') }}" onclick="operation(this)" op="+">
+    	<img src="{{ url_for('static', filename='Plus3.jpg') }}" onclick="operation(this)" op="+">
+      <img src="{{ url_for('static', filename='Minus3.jpg') }}" onclick="operation(this)" op="-">
+      <img src="{{ url_for('static', filename='Times3.jpg') }}" onclick="operation(this)" op="*">
+      <img src="{{ url_for('static', filename='Div3.jpg') }}" onclick="operation(this)" op="/">
 
 
       <!--
