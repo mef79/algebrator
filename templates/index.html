@@ -10,12 +10,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <CENTER>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Algebrator</title>
-
+  </CENTER>
   </head>
 	<body>
     <h1><img src="{{ url_for('static', filename='Title.png') }}" <h1>
@@ -40,7 +41,9 @@
 	</span>
 
 	<br>
-	<button id="simplify" class="btn btn-lg btn-default" onclick="simplify()">Simplify</button>
+	<!--<button id="simplify" class="btn btn-lg btn-default" onclick="simplify()">Simplify</button>
+-->
+    <img src="{{ url_for('static', filename='Simplify.png') }}" onclick="simplify()">
 	<div id="msg"></div>
   </body>
 </html>
