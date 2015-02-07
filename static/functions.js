@@ -72,8 +72,8 @@ function simplify(){
 	left = $('#left-side').text() // get left side, strip tags from it
 	right = $('#right-side').text() // get right side, strip tags from it
 
-	left = left.replace(/\s/g, "") 
-	right = right.replace(/\s/g, "")
+	left = remove_whitespace(left)
+	right = remove_whitespace(right)
 
 	left = left.replace('x', 'i')
 
@@ -112,6 +112,20 @@ function clean(){
 		left_const.text('')
 	}
 
+	check_complete()
+}
+
+function check_complete(){
+	left_side = remove_whitespace($('#left-side').text())
+	console.log(left_side)
+	console.log(left_side == 'x')
+	if (left_side == 'x'){
+		$('#msg').append("You've solved for x!")
+	}
+}
+
+function remove_whitespace(e){
+	return e.replace(/\s/g, "") 
 }
 
 // functions to change appearances of html elements
