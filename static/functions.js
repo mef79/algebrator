@@ -84,13 +84,44 @@ function op_from_n(n) {
 	}
 }
 
-function generate_equation(a, b, c, d, lop, rop, letter){
+function generate_equation(){
+	a = random_in_range(2,9)
+	b = random_in_range(1,9)
+	c = random_in_range(2,9)
+	d = random_in_range(1,9)
+
+	lop = random_char('+-')
+	rop = random_char('+-')
+
+	console.log(lop)
+	console.log(rop)
+
+	side = random_char('rl')
+
+	if (side == 'l'){
+		c = 0
+		rop = ''
+	} else {
+		a = 0
+		lop = ''
+	}
+
+	letter = random_char('abcdefghijkmnpqrstuvwxyz')
+
+	construct_equation(a, b, c, d, lop, rop, letter)
+}
+
+function construct_equation(a, b, c, d, lop, rop, letter){
 	variable_letter = letter
 	if (a == 0){
 		variable_side = 'r'
 	} else {
 		variable_side = 'l'
 	}
+
+	console.log(variable_side)
+	console.log(lop)
+	console.log(rop)
 
 	left_expr = construct_expr("left", a, b, lop)
 	right_expr = construct_expr("right", c, d, rop)
@@ -115,12 +146,13 @@ function construct_expr(side, coefficient, constant, op){
 
 }
 
-function random_n_in_range(low, high){
-	
+function random_in_range(low, high){
+	return Math.floor(Math.random() * (high - low + 1)) + low;
 }
 
-function random_letter(){
-
+function random_char(str){
+	i = random_in_range(0, str.length-1)
+	return str[i]
 }
 
 function operation(clicked){
@@ -140,7 +172,7 @@ function add_functions_to_vars(op){
 		$('.number').attr('onclick', "add_sub_from_click('" + op + "', this)")
 	} else {
 		// operations that get parentheses
-		$('.number').attr('onclick', "mult_div('" + op + "', this)")
+		$('.number').attr('onclick', "mult_div_from_click('" + op + "', this)")
 	}
 }
 
@@ -189,6 +221,8 @@ function add_sub(op, n){
 }
 
 function mult_div_from_click(op, clicked){
+	console.log(op)
+	console.log(clicked)
 	n = $(clicked).text()
 	mult_div(op, n)
 }
