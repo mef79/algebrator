@@ -6,6 +6,7 @@ function operation(clicked){
 	highlight_vars() 			// highlight all variables
 	highlight_button('#' + id)	// highlight appropriate button
 	add_cancel_button(op)		// add cancel button for appropriate operator
+	disable_buttons()
 }
 
 function add_functions_to_vars(op){
@@ -32,6 +33,7 @@ function cancel(elem){
 	$('.variable').attr("onclick", "")
 	unhighlight_vars()
 	unhighlight_button()
+	reenable_buttons()
 	$('#cancel-button').remove()
 }
 
@@ -130,7 +132,6 @@ function end_round(){
 	$('#msg').append("You've solved for x!")
 	add_solve_again_button()
 	disable_buttons()
-	grayout_buttons()
 }
 
 function reset(){
@@ -152,15 +153,16 @@ function reset(){
 
 	$('#msg').empty()
 	reenable_buttons()
-	un_grayout_buttons()
 }
 
 function disable_buttons(){
 	$('.op-button').attr('onclick', "")
+	grayout_buttons()
 }
 
 function reenable_buttons(){
 	$('.op-button').attr('onclick', 'operation(this)')
+	un_grayout_buttons()
 }
 
 function remove_whitespace(e){
