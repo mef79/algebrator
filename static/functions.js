@@ -24,6 +24,10 @@ function add_cancel_button(op){
 	$('#buttons').append('<button id="cancel-button" class="btn btn-lg btn-danger" onclick="cancel(\''+id+'\')">Cancel</button>')
 }
 
+function add_solve_again_button(){
+	$('#msg').append('<button id="again-button" class="btn btn-lg btn-info" onclick="reset()">Solve Again</button>')
+}
+
 function cancel(elem){
 	$('.variable').attr("onclick", "")
 	unhighlight_vars()
@@ -124,12 +128,37 @@ function check_complete(){
 
 function end_round(){
 	$('#msg').append("You've solved for x!")
+	add_solve_again_button()
 	disable_buttons()
 	grayout_buttons()
 }
 
+function reset(){
+	$('#left-side').empty()
+	$('#right-side').empty()
+
+	x_coefficient = Math.floor((Math.random() * 9) + 2);
+	left_const = Math.floor((Math.random() * 10) + 1);
+	right_const = Math.floor((Math.random() * 10) + 1);
+
+	x_coefficient_span = '<span class="variable" id="x-coefficient">' + x_coefficient + '</span>'
+	left_const_span = '<span class="variable" id="left-const">' + left_const + '</span>'
+	right_const_span = '<span class="variable">' + right_const + '</span>'
+
+	$('#left-side').append(x_coefficient_span + 'x + ' + left_const_span)
+	$('#right-side').append(right_const_span)
+
+	$('#msg').empty()
+	reenable_buttons()
+	un_grayout_buttons()
+}
+
 function disable_buttons(){
-	$('#buttons').attr('onclick', "")
+	$('.op-button').attr('onclick', "")
+}
+
+function reenable_buttons(){
+	$('.op-button').attr('onclick', 'operation(this)')
 }
 
 function remove_whitespace(e){
@@ -159,4 +188,8 @@ function unhighlight_button(){
 
 function grayout_buttons(){
 	// give the buttons the appearance of being disabled
+}
+
+function un_grayout_buttons(){
+	// return the buttons to their original appearance
 }

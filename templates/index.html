@@ -20,23 +20,24 @@
 	<body>
     <h1><img src="{{ url_for('static', filename='Title.png') }}" <h1>
     <br>
-    <span id="left-side" class="side">
-    	<span class="variable" id="x-coefficient">{{ a }}</span>x 
-    	+ 
-    	<span class="variable" id="left-const">{{ b }}</span>
-    </span>
-    	= 
-    <span id="right-side" class="side">
-    	<span class="variable">{{ c }}</span>
-    </span>
-    <br>
+    <div id="equation">
+	    <span id="left-side" class="side">
+	    	<span class="variable" id="x-coefficient">{{ a }}</span>x 
+	    	+ 
+	    	<span class="variable" id="left-const">{{ b }}</span>
+	    </span>
+	    	= 
+	    <span id="right-side" class="side">
+	    	<span class="variable">{{ c }}</span>
+	    </span>
+	</div>
     <br>
 
     <span id="buttons">
-    	<img src="{{ url_for('static', filename='Plus3.jpg') }}" onclick="operation(this)" op="+">
-      	<img src="{{ url_for('static', filename='Minus3.jpg') }}" onclick="operation(this)" op="-">
-      	<img src="{{ url_for('static', filename='Times3.jpg') }}" onclick="operation(this)" op="*">
-      	<img src="{{ url_for('static', filename='Div3.jpg') }}" onclick="operation(this)" op="/">
+    	<img src="{{ url_for('static', filename='Plus3.jpg') }}" onclick="operation(this)" op="+" class="op-button">
+      	<img src="{{ url_for('static', filename='Minus3.jpg') }}" onclick="operation(this)" op="-" class="op-button">
+      	<img src="{{ url_for('static', filename='Times3.jpg') }}" onclick="operation(this)" op="*" class="op-button">
+      	<img src="{{ url_for('static', filename='Div3.jpg') }}" onclick="operation(this)" op="/" class="op-button">
 	</span>
 
 	<br>
