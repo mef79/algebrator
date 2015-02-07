@@ -1,5 +1,7 @@
+var variable_letter;
+
 $( document ).ready(function() {
-    window.variable_letter = $('#variable').text()
+    variable_letter = $('#variable').text()
 });
 
 function operation(clicked){
@@ -85,7 +87,7 @@ function simplify(){
 	left = remove_whitespace(left)
 	right = remove_whitespace(right)
 
-	left = left.replace(window.variable_letter, 'i')
+	left = left.replace(variable_letter, 'i')
 
 	l = math.eval(left)
 	r = math.eval(right)
@@ -101,7 +103,7 @@ function simplify(){
 		op = '+ '
 	}
 
-	$('#left-side').append('<span class="number" id="coefficient">' + l.im + '</span>' + window.variable_letter + ' <span id="op">' + op + ' </span><span class="number" id="left-const">' + left_const + '</span>')
+	$('#left-side').append('<span class="number" id="coefficient">' + l.im + '</span>' + variable_letter + ' <span id="op">' + op + ' </span><span class="number" id="left-const">' + left_const + '</span>')
 
 	$('#right-side').append('<span class="number">' + r + '</span>')
 
@@ -138,7 +140,7 @@ function check_complete(){
 }
 
 function end_round(){
-	$('#msg').append("You've solved for " + window.variable_letter + "!")
+	$('#msg').append("You've solved for " + variable_letter + "!")
 	add_solve_again_button()
 	disable_buttons()
 }
@@ -157,7 +159,7 @@ function reset(){
 	left_const_span = '<span class="number" id="left-const">' + left_const + '</span>'
 	right_const_span = '<span class="number">' + right_const + '</span>'
 
-	$('#left-side').append(coefficient_span + window.variable_letter + ' ' + op + ' ' + left_const_span)
+	$('#left-side').append(coefficient_span + variable_letter + ' ' + op + ' ' + left_const_span)
 	$('#right-side').append(right_const_span)
 
 	$('#msg').empty()
