@@ -32,7 +32,8 @@ function add_cancel_button(op){
 }
 
 function add_solve_again_button(){
-	$('#msg').append('<button id="again-button" class="btn btn-lg btn-info" onclick="reset()">Solve Again</button>')
+	// $('#msg').append('<button id="again-button" class="btn btn-lg btn-info" onclick="reset()">Solve Again</button>')
+	<img id="solveagain" src="{{ url_for('static', filename='AnotherBtn.png') }}" onclick="reset()">
 }
 
 function cancel(elem){
