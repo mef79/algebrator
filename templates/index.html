@@ -1,24 +1,22 @@
 <!doctype html>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/1.2.0/math.min.js"></script>
 <script src="{{ url_for('static', filename='functions.js') }}"></script>
 
 <html lang="en">
   <head>
-    <CENTER>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Algebrator</title>
-  </CENTER>
   </head>
 	<body>
-    <h1><img src="{{ url_for('static', filename='Title.png') }}" <h1>
+	<div id="wrapper">
+    <div id="title-div">
+    	<img src="{{ url_for('static', filename='Title.png') }}">
+	</div>	
     <br>
     <div id="equation">
 	    <span id="left-side" class="side">
@@ -33,19 +31,22 @@
 	</div>
     <br>
 
-    <span id="buttons">
+    <div id="buttons">
 
     	<img src="{{ url_for('static', filename='Plus3.jpg') }}" onclick="operation(this)" op="+" class="op-button">
       	<img src="{{ url_for('static', filename='Minus3.jpg') }}" onclick="operation(this)" op="-" class="op-button">
       	<img src="{{ url_for('static', filename='Times3.jpg') }}" onclick="operation(this)" op="*" class="op-button">
       	<img src="{{ url_for('static', filename='Div3.jpg') }}" onclick="operation(this)" op="/" class="op-button">
 
-	</span>
+	</div>
 
 	<br>
-	<!--<button id="simplify" class="btn btn-lg btn-default" onclick="simplify()">Simplify</button>
--->
-    <img src="{{ url_for('static', filename='Simplify.png') }}" onclick="simplify()">
-	<div id="msg"></div>
+	<div id="simplify-div">
+    	<img id="simplify-button" src="{{ url_for('static', filename='Simplify.png') }}" onclick="simplify()">
+    </div>
+	<div id="msg">
+	
+	</div>
+	</div>
   </body>
 </html>

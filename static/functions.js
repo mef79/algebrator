@@ -157,11 +157,13 @@ function reset(){
 
 function disable_buttons(){
 	$('.op-button').attr('onclick', "")
+	$('#simplify-button').attr('onclick', "")
 	grayout_buttons()
 }
 
 function reenable_buttons(){
 	$('.op-button').attr('onclick', 'operation(this)')
+	$('#simplify-button').attr('onclick', 'simplify()')
 	un_grayout_buttons()
 }
 
