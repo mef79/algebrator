@@ -1,8 +1,8 @@
 <!doctype html>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,11 +17,17 @@
     <h1>Algebrator</h1>
     <br>
     <br>
-    {{ a }} x + {{ b }} = {{ c }}
+    <span id="a">{{ a }}</span> x + <span id="b">{{ b }}</span> = <span id="c">{{ c }}</span>
     <br>
 	<button class="btn btn-lg btn-default">+</button>
 	<button class="btn btn-lg btn-default">-</button>
 	<button class="btn btn-lg btn-default">*</button>
 	<button class="btn btn-lg btn-default">/</button>
+	<br>
+	<script>
+		document.write($('#a').text()+"\n");
+		document.write($('#b').text()+"\n");
+		document.write($('#c').text()+"\n");
+	</script>
   </body>
 </html>

@@ -10,9 +10,9 @@ def hello():
 	return render_template('index.html', a=a, b=b, c=c)
 
 def create_equation():
-	a = randint(0, 10)
-	b = randint(0, 10)
-	c = randint(0, 10)
+	a = randint(1, 10)
+	b = randint(1, 10)
+	c = randint(1, 10)
 	return a, b, c
 
 if __name__ == "__main__":
