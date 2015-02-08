@@ -171,6 +171,7 @@ function end_round(){
 	$('#msg').append("<p>You've solved for " + variable_letter + "!</p>")
 	add_solve_again_button()
 	disable_buttons()
+	$('#simplify-button').attr('src', 'static/img/Simplify_gray.png')
 	solved = true
 }
 
@@ -182,6 +183,7 @@ function reset(){
 
 	$('#msg').empty()
 	reset_buttons()
+	$('#simplify-button').attr('src', 'static/img/Simplify.png')
 	solved = false
 }
 
