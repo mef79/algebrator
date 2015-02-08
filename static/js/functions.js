@@ -20,7 +20,7 @@ $(document).keydown(function(e){
 			$divide_button.click()
 		} 
 	} else if (!solved) { // number press actions
-		if (49 <= e.keyCode && e.keyCode <= 57){
+		if (48 <= e.keyCode && e.keyCode <= 57){
 			current_n = e.keyCode - 48
 			execute()
 		}
@@ -30,11 +30,8 @@ $(document).keydown(function(e){
 		cancel()
 	}
 
-	if (solved && !buttons_enabled){ // r = reset
-		console.log('solved')
-		if (e.keyCode == 82){
-			reset()
-		}
+	if (e.keyCode == 82){
+		reset()
 	}
 });
 
@@ -78,6 +75,13 @@ function cancel(){
 }
 
 function execute(){
+	$('#msg').empty()
+	if (current_op == '/' && current_n == '0'){
+		$('#msg').append('<p>Dividing by zero is bad for your health.</p>')
+		cancel()
+		return
+	}
+
 	// surround with parentheses for * or /
 	if (current_op == '*' || current_op == '/'){
 		$('.side').prepend('(').append(')')
@@ -109,7 +113,8 @@ function simplify(){
 		constant = r
 	}
 
-	if (constant < 0){
+	if (parseInt(constant) < 0){
+		console.log(constant)
 		op = '- '
 		constant = Math.abs(constant)
 	} else {
@@ -152,6 +157,7 @@ function clean(){
 		constant.text('')
 	}
 
+	disable_simplify_button()
 	check_complete()
 }
 
@@ -171,7 +177,7 @@ function end_round(){
 	$('#msg').append("<p>You've solved for " + variable_letter + "!</p>")
 	add_solve_again_button()
 	disable_buttons()
-	$('#simplify-button').attr('src', 'static/img/Simplify_gray.png')
+	disable_simplify_button()
 	solved = true
 }
 
@@ -183,22 +189,41 @@ function reset(){
 
 	$('#msg').empty()
 	reset_buttons()
-	$('#simplify-button').attr('src', 'static/img/Simplify.png')
 	solved = false
 }
 
 function disable_buttons(){
 	buttons_enabled = false
 	$('.op-button').attr('onclick', "")
-	$('#simplify-button').attr('onclick', "")
-	grayout_buttons()
+	disable_simplify_button()
+
+	// gray out op buttons
+	$('#op-buttons').children().each(function(){
+		src = 'static/img/' + $(this).attr('name') + '/gray.png';
+		$(this).attr('src', src);
+	});
+}
+
+function disable_simplify_button(){
+	$('#simplify-button').attr('src', 'static/img/Simplify_gray.png');
+	$('#simplify-button').attr('onclick', '');
+}
+
+function enable_simplify_button(){
+	$('#simplify-button').attr('onclick', 'simplify()')
+	$('#simplify-button').attr('src', 'static/img/Simplify.png')
 }
 
 function reset_buttons(){
 	buttons_enabled = true
+	enable_simplify_button();
 	$('.op-button').attr('onclick', 'click_op(this)')
-	$('#simplify-button').attr('onclick', 'simplify()')
-	un_grayout_buttons()
+
+	// un gray-out buttons
+	$('#op-buttons').children().each(function(){
+		src = 'static/img/' + $(this).attr('name') + '/default.png';
+		$(this).attr('src', src)
+	});
 }
 
 function highlight_vars(){
@@ -212,18 +237,4 @@ function unhighlight_vars(){
 function highlight_current_button(){
 	src = 'static/img/' + $current_button.attr('name') + '/highlight.png'
 	$current_button.attr('src', src)
-}
-
-function grayout_buttons(){
-	$('#op-buttons').children().each(function(){
-		src = 'static/img/' + $(this).attr('name') + '/gray.png';
-		$(this).attr('src', src);
-	});
-}
-
-function un_grayout_buttons(){
-	$('#op-buttons').children().each(function(){
-		src = 'static/img/' + $(this).attr('name') + '/default.png';
-		$(this).attr('src', src)
-	});
 }
