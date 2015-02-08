@@ -29,13 +29,13 @@
 		</div>
 	    <div style="height:50px"></div>
 	    <div id="buttons">
-	    	<span id="op-buttons">
+	    	<div id="op-buttons">
 		    	<img id="add-button" name="add" op="+" class="op-button">
 		      	<img id="sub-button" name="sub" op="-" class="op-button">
 		      	<img id="mult-button" name="mult" op="*" class="op-button">
 		      	<img id="divide-button" name="divide" op="/" class="op-button">
-		      </span>
-	      	<button id="cancel-button" onclick="" disabled>Cancel</button>
+		      </div>
+		      <img id="cancel-button" src="static/Cancel_gray.png" onclick="">
 		</div>
 
 		<br>
@@ -79,6 +79,7 @@
 		// generate the first equation to appear on the page
 	    generate_equation();
 	    disable_simplify_button();
+	    disable_cancel_button();
 
 	});
   </script>

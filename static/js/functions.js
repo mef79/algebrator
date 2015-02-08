@@ -58,8 +58,13 @@ function click_n(n){
 }
 
 function enable_cancel_button(op){
-	$('#cancel-button').prop('disabled', false)
+	$('#cancel-button').attr('src', 'static/Cancel.png')
 	$('#cancel-button').attr('onclick', 'cancel()')
+}
+
+function disable_cancel_button(){
+	$('#cancel-button').attr('onclick', '');
+	$('#cancel-button').attr('src', 'static/Cancel_gray.png')
 }
 
 function add_solve_again_button(){
