@@ -4,7 +4,7 @@ $(document).keydown(function(e){
 	//alert(e.keyCode) // never know when you'll need a key code
 
 	if (buttons_enabled) { // operator press actions
-		if (e.keyCode == 13){
+		if (e.keyCode == 13 && simplify_enabled == true){
 		    simplify()
 		}
 		if (e.keyCode == 187){
@@ -92,6 +92,7 @@ function execute(){
 }
 
 function simplify(){
+	console.log('simplify called');
 	left = $('#left-side').text() // get left side, strip tags from it
 	right = $('#right-side').text() // get right side, strip tags from it
 
@@ -105,28 +106,22 @@ function simplify(){
 	l = math.eval(left)
 	r = math.eval(right)
 
-	$('.side').empty()
-
-	if (typeof(l) == 'number'){
-		constant = l
-	} else {
-		constant = r
-	}
-
-	if (parseInt(constant) < 0){
-		console.log(constant)
-		op = '- '
-		constant = Math.abs(constant)
-	} else {
-		op = '+ '
-	}
+	$('.side').empty() // empty both sides
 
 	if (variable_side == 'l'){
+		if (l.re < 0){
+			switch_current_op();
+			l.re = Math.abs(l.re);
+		}
 		left_expr = construct_expr('l', l.im, l.re, op)
 		right_expr = construct_expr('r', 0, r, '')
 	} else {
-		right_expr = construct_expr('r', r.im, r.re, op)
+		if (r.re < 0){
+			switch_current_op();
+			r.re = Math.abs(r.re);
+		}
 		left_expr = construct_expr('l', 0, l, '')
+		right_expr = construct_expr('r', r.im, r.re, op)
 	}
 
 	$('#left-side').append(left_expr)
@@ -155,6 +150,13 @@ function clean(){
 	if (constant.text() == '0'){
 		op.remove()
 		constant.text('')
+	}
+
+	console.log('hi mom')
+	if (op == '+' && constant.indexOf('-') > -1){
+		console.log('hi mom')
+		op.text('-');
+		constant.remove('-')
 	}
 
 	disable_simplify_button()
@@ -189,7 +191,17 @@ function reset(){
 
 	$('#msg').empty()
 	reset_buttons()
-	solved = false
+	disable_simplify_button();
+	simplify_enabled = false;
+	solved = false;
+}
+
+function switch_current_op(){
+	if (current_op == '+'){
+		current_op = '-';
+	} else {
+		current_op = '+'
+	}
 }
 
 function disable_buttons(){
@@ -205,11 +217,13 @@ function disable_buttons(){
 }
 
 function disable_simplify_button(){
+	simplify_enabled = false;
 	$('#simplify-button').attr('src', 'static/img/Simplify_gray.png');
 	$('#simplify-button').attr('onclick', '');
 }
 
 function enable_simplify_button(){
+	simplify_enabled = true;
 	$('#simplify-button').attr('onclick', 'simplify()')
 	$('#simplify-button').attr('src', 'static/img/Simplify.png')
 }

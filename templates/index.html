@@ -55,6 +55,7 @@
 
 	// setting global variables
 	var buttons_enabled = true;
+	var simplify_enabled = false;
 	var solved = false;
 	var current_n;
 	var current_op;
@@ -77,6 +78,7 @@
 
 		// generate the first equation to appear on the page
 	    generate_equation();
+	    disable_simplify_button();
 
 	});
   </script>
