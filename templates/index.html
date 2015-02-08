@@ -2,7 +2,9 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/1.2.0/math.min.js"></script>
-<script src="{{ url_for('static', filename='functions.js') }}"></script>
+<script src="{{ url_for('static', filename='js/functions.js') }}"></script>
+<script src="{{ url_for('static', filename='js/create_expressions.js') }}"></script>
+<script src="{{ url_for('static', filename='js/utils.js') }}"></script>
 
 <html lang="en">
   <head>
@@ -15,7 +17,7 @@
 	<body>
 	<div id="wrapper">
 	    <div id="title-div">
-	    	<img src="{{ url_for('static', filename='Title.png') }}">
+	    	<img src="{{ url_for('static', filename='img/Title.png') }}">
 		</div>	
 	    <div style="height:50px"></div>
 	    <div id="equation">
@@ -27,17 +29,18 @@
 		</div>
 	    <div style="height:50px"></div>
 	    <div id="buttons">
-
-	    	<img src="{{ url_for('static', filename='Plus3.png') }}" onclick="operation(this)" op="+" class="op-button">
-	      	<img src="{{ url_for('static', filename='Minus3.png') }}" onclick="operation(this)" op="-" class="op-button">
-	      	<img src="{{ url_for('static', filename='Times3.png') }}" onclick="operation(this)" op="*" class="op-button">
-	      	<img src="{{ url_for('static', filename='Div3.png') }}" onclick="operation(this)" op="/" class="op-button">
-
+	    	<span id="op-buttons">
+		    	<img id="add-button" name="add" op="+" class="op-button">
+		      	<img id="sub-button" name="sub" op="-" class="op-button">
+		      	<img id="mult-button" name="mult" op="*" class="op-button">
+		      	<img id="divide-button" name="divide" op="/" class="op-button">
+		      </span>
+	      	<button id="cancel-button" onclick="" disabled>Cancel</button>
 		</div>
 
 		<br>
 		<div id="simplify-div">
-	    	<img id="simplify-button" src="{{ url_for('static', filename='Simplify.png') }}" onclick="simplify()">
+	    	<img id="simplify-button" src="{{ url_for('static', filename='img/Simplify.png') }}" onclick="simplify()">
 	    </div>
 		<div id="msg">
 
@@ -46,8 +49,35 @@
   </body>
 
   <script>
+	// generate the variable letter and side at random
+  	var variable_letter = random_char('abcdefghijkmnpqrstuvwxyz');
+	var variable_side = random_char('rl');
+
+	// setting global variables
+	var buttons_enabled = true;
+	var solved = false;
+	var current_n;
+	var current_op;
+
+	// global variables for the buttons
+	var $add_button = $('#add-button');
+	var $sub_button = $('#sub-button');
+	var $mult_button = $('#mult-button');
+	var $divide_button = $('#divide-button');
+
+	var $current_button;
+
 	$( document ).ready(function() {
-	    generate_equation()
+		// add onclick functions and src attributes
+		$('#op-buttons').children().each(function(){
+			$obj = $(this) // $obj is the curren child element
+			$obj.attr('onclick', 'click_op(this)');
+			$obj.attr('src', 'static/img/' + $obj.attr('name') + '/default.png');
+		});
+
+		// generate the first equation to appear on the page
+	    generate_equation();
+
 	});
   </script>
 </html>
