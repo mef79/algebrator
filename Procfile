@@ -1,1 +1,1 @@
-web: python algebrator.py
+web: gunicorn algebrator:app
