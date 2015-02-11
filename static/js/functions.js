@@ -98,7 +98,6 @@ function execute(){
 }
 
 function simplify(){
-	console.log('simplify called');
 	left = $('#left-side').text() // get left side, strip tags from it
 	right = $('#right-side').text() // get right side, strip tags from it
 
@@ -158,9 +157,7 @@ function clean(){
 		constant.text('')
 	}
 
-	console.log('hi mom')
 	if (op == '+' && constant.indexOf('-') > -1){
-		console.log('hi mom')
 		op.text('-');
 		constant.remove('-')
 	}
