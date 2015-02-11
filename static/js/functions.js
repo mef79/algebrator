@@ -58,13 +58,13 @@ function click_n(n){
 }
 
 function enable_cancel_button(op){
-	$('#cancel-button').attr('src', 'static/Cancel.png')
+	$('#cancel-button').attr('src', 'static/img/Cancel.png')
 	$('#cancel-button').attr('onclick', 'cancel()')
 }
 
 function disable_cancel_button(){
 	$('#cancel-button').attr('onclick', '');
-	$('#cancel-button').attr('src', 'static/Cancel_gray.png')
+	$('#cancel-button').attr('src', 'static/img/Cancel_gray.png')
 }
 
 function add_solve_again_button(){
@@ -77,6 +77,7 @@ function cancel(){
 	reset_buttons()
 	$('#cancel-button').prop('disabled', true)
 	$('#cancel-button').attr('onclick', '')
+	disable_cancel_button();
 }
 
 function execute(){
@@ -165,6 +166,7 @@ function clean(){
 	}
 
 	disable_simplify_button()
+	disable_cancel_button()
 	check_complete()
 }
 
