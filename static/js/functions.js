@@ -118,7 +118,7 @@ function simplify(){
 			switch_current_op();
 			l.re = Math.abs(l.re);
 		}
-		left_expr = construct_expr('l', l.im, l.re, op)
+		left_expr = construct_expr('l', l.im, l.re, current_op)
 		right_expr = construct_expr('r', 0, r, '')
 	} else {
 		if (r.re < 0){
@@ -126,7 +126,7 @@ function simplify(){
 			r.re = Math.abs(r.re);
 		}
 		left_expr = construct_expr('l', 0, l, '')
-		right_expr = construct_expr('r', r.im, r.re, op)
+		right_expr = construct_expr('r', r.im, r.re, current_op)
 	}
 
 	$('#left-side').append(left_expr)
@@ -180,7 +180,7 @@ function check_complete(){
 }
 
 function end_round(){
-	$('#msg').append("<p>You've solved for " + variable_letter + "!</p>")
+	$('#msg').append("<p class='big-text'>You've solved for " + variable_letter + "!</p>")
 	add_solve_again_button()
 	disable_buttons()
 	disable_simplify_button()
