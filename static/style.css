@@ -13,6 +13,10 @@ body {
 	text-align: center;
 }
 
+#equation, .big-text {
+	font-family: 'Leckerli One';
+}
+
 #buttons {
 	text-align: center;
 }
